@@ -1,12 +1,12 @@
 @extends('inc.cdn')
 
 @section('c')
-<h3 class="d-flex justify-content-center text-white" style="padding-top: 20px">ویرایش دسته بندی</h3>
+<h3 class="d-flex justify-content-center text-white" style="padding-top: 20px">ویرایش دسته بندی غذا</h3>
 
 
 
 
-<div dir="ltr" class="d-flex gap-4 justify-content-center bg-light" style="margin-top: 100px ; padding-top:20px" >
+<div class="d-flex gap-4 justify-content-center bg-light" style="margin-top: 100px ; padding-top:20px" >
     <form action="/food_categories/{{$foodCat->id}}" method="post" class="col-3">
             @if ($errors->any())
                 <div class="d-flex justify-content-center alert alert-danger">
@@ -20,7 +20,7 @@
 
         @csrf
         @method('PUT')
-            <div class="d-block" dir="ltr">
+            <div class="d-block" dir="rtl">
                 <div class="col">
                     <input name="name" type="text" class="form-control" placeholder="نام دسته بندی">
                 </div>

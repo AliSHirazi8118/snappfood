@@ -14,7 +14,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen" style="background-color: #FF00A4">
+        <div class="min-h-screen" style="background-image: url({{asset('images/SnappFood-Mojtaba-3.jpg')}});">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

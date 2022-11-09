@@ -20,9 +20,12 @@ return new class extends Migration
             $table->string('price');
             $table->string('image')->nullable();
             $table->string('food_cat');
+            $table->foreignId('food_cat_id')->references('id')->on('food_categories');
             $table->string('discount')->nullable();
             $table->enum('food_party' , ['yes' , 'no'])->default('no');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 

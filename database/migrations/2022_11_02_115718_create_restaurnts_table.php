@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('description');
             $table->integer('count')->default(0);
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 

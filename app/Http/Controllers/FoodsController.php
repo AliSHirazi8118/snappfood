@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\food;
-use App\Models\FoodCategory;
+use App\Http\Requests\Foods\addDiscountRequest;
+use App\Http\Requests\Foods\FoodCreateRequest;
+use App\Http\Requests\Foods\FoodUpdateRequest;
+use App\Models\Food;
 use App\Models\Restaurnt;
+use App\Models\FoodCategory;
 use Illuminate\Http\Request;
 
 class FoodsController extends Controller
@@ -16,7 +19,7 @@ class FoodsController extends Controller
      */
     public function index()
     {
-        $foods = food::all();
+        $foods = Food::all();
         return view('Foods.index' , compact('foods'));
     }
 
@@ -38,19 +41,24 @@ class FoodsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FoodCreateRequest $request)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'price' => 'required',
-            'food_cat' => 'required'
-        ]);
+        $foodId = FoodCategory::where('food_categories' , $request->food_cat)->get();
+        foreach ($foodId as $id) {
+            $food_cat_id = $id->id;
+        }
 
-        $food = new food();
+        $image = $request->file('photo')->getClientOriginalName();
+        $request->file('photo')->move(public_path('images/foods') , $image);
+
+
+        $food = new Food();
         $food->food_name = $request->name;
         $food->material = $request->material;
         $food->price = $request->price;
         $food->food_cat = $request->food_cat;
+        $food->food_cat_id = $food_cat_id;
+        $food->image = $image;
         $food->save();
 
         return redirect('foods');
@@ -64,7 +72,9 @@ class FoodsController extends Controller
      */
     public function show($id)
     {
-        //
+        $foodCat = FoodCategory::find($id);
+        $food = Food::find($id);
+        return view('Foods.show' , compact('foodCat' , 'food'));
     }
 
     /**
@@ -75,7 +85,9 @@ class FoodsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $foodCat = FoodCategory::all();
+        $food = Food::find($id);
+        return view('Foods.update' , compact('food' , 'foodCat'));
     }
 
     /**
@@ -85,11 +97,68 @@ class FoodsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FoodUpdateRequest $request, $id)
     {
-        //
-    }
+        $foodId = FoodCategory::where('food_categories' , $request->food_cat)->get();
+        foreach ($foodId as $food) {
+            $food_cat_id = $food->id;
+        }
 
+        $image = $request->file('photo')->getClientOriginalName();
+        $request->file('photo')->move(public_path('images/foods') , $image);
+
+
+        Food::find($id)
+            ->update([
+                'food_name' => $request->name,
+                'material' => $request->material,
+                'price' => $request->price,
+                'food_cat' => $request->food_cat,
+                'food_cat_id' => $food_cat_id,
+                'image' => $image,
+                'discount' => null,
+            ]);
+
+        return redirect('foods');
+
+    }
+//------------------------------------------------------------------
+    public function showAddDiscount($id)
+    {
+        $food = Food::find($id);
+        return view('Foods.addDiscount' , compact('food'));
+    }
+    public function addDiscount(addDiscountRequest $request , $id)
+    {
+        Food::find($id)->update([
+            'discount' => $request->discount,
+        ]);
+        return redirect('foods');
+    }
+//------------------------------------------------------------------
+
+
+//------------------------------------------------------------------
+    public function addFoodParty($id)
+    {
+        $food = Food::find($id);
+
+        if ($food->food_party == 'no')
+        {
+            Food::find($id)->update([
+                'food_party' => 'yes'
+            ]);
+        }
+        else
+        {
+            Food::find($id)->update([
+                'food_party' => 'no'
+            ]);
+        }
+
+        return redirect('foods');
+    }
+//------------------------------------------------------------------
     /**
      * Remove the specified resource from storage.
      *
@@ -98,6 +167,7 @@ class FoodsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Food::destroy($id);
+        return redirect('foods');
     }
 }

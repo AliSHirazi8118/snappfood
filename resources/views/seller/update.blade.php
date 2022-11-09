@@ -28,11 +28,11 @@
             </div>
             <br>
             <div class="col">
-                <input name="account_number" type="number" class="form-control" value="{{$restInfo->account_number}}" placeholder="شماره حساب">
+                <input name="account_number" type="text" class="form-control" value="{{$restInfo->account_number}}" placeholder="شماره حساب">
             </div>
             <br>
             <div class="col">
-                <textarea name="address" type="text" class="form-control" value="{{$restInfo->address}}"  placeholder="آدرس رستوران"></textarea>
+                <textarea name="address" type="text" class="form-control" value="{{old('address')}}"  placeholder="آدرس رستوران">{{$restInfo->address}}</textarea>
             </div>
             <br>
             <div class="col">
@@ -45,7 +45,7 @@
             <br>
             <div class="col">
                 <label>انتخاب عکس</label>
-                <input name="photo" type="file" class="form-control">
+                <input name="photo" type="file"  value="{{old('photo')}}" class="form-control">
             </div>
             <br>
             <div class="col">
@@ -68,7 +68,7 @@
         </div>
             <button type="submit" class="btn btn-success btn-lg btn-block mt-4 mr-4 mb-2" style="margin-right: 50px; margin-left:100px ; width:200px">ویرایش</button>
             <br>
-            <a href="/dashboard" class="btn btn-primary btn-lg btn-block mt-1 mb-4" style="margin-left: 100px ; height:50px; width:200px">بازگشت</a>
+            <a href="/RestInormations/{{$restInfo->id}}" class="btn btn-primary btn-lg btn-block mt-1 mb-4" style="margin-left: 100px ; height:50px; width:200px">بازگشت</a>
         </form>
 </div>
 @endsection

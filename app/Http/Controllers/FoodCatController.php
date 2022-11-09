@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FoodCategory\FoodCatCreateRequest;
+use App\Http\Requests\FoodCategory\FoodCatUpdateRequest;
 use App\Models\Restaurnt;
 use App\Models\FoodCategory;
 use Illuminate\Http\Request;
@@ -37,13 +39,8 @@ class FoodCatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FoodCatCreateRequest $request)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'rest_cat' => 'required',
-        ]);
-
         $foodCat = new FoodCategory();
         $foodCat->food_categories = $request->name;
         $foodCat->restaurant_id = $request->rest_cat;
@@ -85,13 +82,8 @@ class FoodCatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FoodCatUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'rest_cat' => 'required',
-        ]);
-
         FoodCategory::find($id)
 	    ->update([
 		    'food_categories' => $request->name,

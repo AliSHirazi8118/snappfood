@@ -25,14 +25,17 @@
                         </div>
                     @elseif ($user->role == 'seller')
                         @if (isset($info))
+                            @foreach ($info as $data)
                             <div>
-                                <a href="/RestInormations/{{$info->id}}" class="btn btn-success btn-lg btn-block mt-2 mb-2" style="margin-left: 450px ;height:50px; width:260px">تنظیمات اولیه رستوران</a>
+                                <a href="/RestInormations/{{$data->id}}" class="btn btn-success btn-lg btn-block mt-2 mb-2" style="margin-left: 450px ;height:50px; width:260px">تنظیمات اولیه رستوران</a>
                                 <a href="/foods" class="btn btn-primary btn-lg btn-block mt-2 mb-2" style="margin-left: 450px ;height:50px; width:260px">مدیریت غذاها</a>
                             </div>
-                        @else
+                            @endforeach
+
+                        {{-- @else
                             <div>
                                 <a href="/RestInormations/create" class="btn btn-primary btn-lg btn-block mt-2 mb-2" style="margin-left: 450px ;height:50px; width:260px">تکمیل مشخصات رستوران</a>
-                            </div>
+                            </div> --}}
                         @endif
 
 

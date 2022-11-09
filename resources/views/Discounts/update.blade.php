@@ -17,22 +17,22 @@
 
         @csrf
         @method('PUT')
-        <div class="d-block" dir="ltr">
+        <div class="d-block" dir="rtl">
             <div class="col">
-                <input name="code" type="text" class="form-control" placeholder="کد تخفیف">
+                <input name="code" type="text" class="form-control" value="{{old('code')}}" placeholder="کد تخفیف">
             </div>
             <br>
             <div class="col">
-                <input name="discount" type="integer" class="form-control" placeholder="میزان تخفیف">
+                <input name="discount" type="integer" class="form-control" value="{{old('discount')}}" placeholder="میزان تخفیف">
             </div>
             <br>
             <span>زمان تخفیف را انتخاب کنید</span>
             <div class="col">
-                <input name="h" type="integer" class="form-control" placeholder="چند ساعت ؟">
+                <input name="hour" type="integer" class="form-control" value="{{old('hour')}}" placeholder="چند ساعت ؟">
             </div>
             <br>
             <div class="col">
-                <input name="d" type="integer" class="form-control" placeholder="چند روز ؟">
+                <input name="day" type="integer" class="form-control" value="{{old('day')}}" placeholder="چند روز ؟">
             </div>
         </div>
 

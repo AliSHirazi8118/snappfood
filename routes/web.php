@@ -9,7 +9,6 @@ use App\Http\Controllers\InfoRestController;
 use App\Http\Controllers\RegisterSeller;
 use App\Http\Controllers\RestaurantController;
 use App\Models\InformationRest;
-use App\Models\Seller;
 use App\Models\User;
 
 /*
@@ -31,15 +30,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
 
     $user = User::find(auth()->user()->id);
-    $id = Seller::all()->where('email' , $user->email);
-
-    foreach ($id as $id) {
-        $user_id = $id->id;
-    }
-    $info = false;
-    if (isset($user_id)) {
-        $info = InformationRest::find($user_id);
-    }
+    $info = InformationRest::where('seller_id',$user->id)->get();
 
     return view('dashboard' , compact('user' , 'info'));
 
@@ -49,16 +40,19 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 
-Route::resource('restaurant' , RestaurantController::class);
-Route::resource('food_categories' , FoodCatController::class);
-Route::resource('discounts' , DiscountController::class);
-Route::resource('RestInormations' , InfoRestController::class);
-Route::resource('foods' , FoodsController::class);
+Route::resource('restaurant' , RestaurantController::class)->middleware('auth');
+Route::resource('food_categories' , FoodCatController::class)->middleware('auth');
+Route::resource('discounts' , DiscountController::class)->middleware('auth');
 
+
+Route::resource('RestInormations' , InfoRestController::class)->middleware('auth');
 Route::get('state/{id}' , [InfoRestController::class , 'openOrClose'])->name('state');
 
-Route::get('Register' , [RegisterSeller::class , 'register_view'])->name('registerSeller');
-Route::post('RegisterSellers' , [RegisterSeller::class , 'register']);
+Route::resource('foods' , FoodsController::class)->middleware('auth');
+Route::get('AddDiscountPage/{id}' , [FoodsController::class , 'showAddDiscount']);
+Route::post('addDiscount/{id}' , [FoodsController::class , 'addDiscount']);
+Route::post('addFoodParty/{id}' , [FoodsController::class ,'addFoodParty']);
 
-// Route::get('DataRest' , [RegisterSeller::class , 'showDataRest'])->name('ShowFormRest');
-// Route::post('SubmitDataRest' , [RegisterSeller::class , 'submitDataRest']);
+
+Route::get('DataRest' , [RegisterSeller::class , 'showDataRest'])->name('ShowFormRest');
+Route::post('SubmitDataRest' , [RegisterSeller::class , 'submitDataRest']);

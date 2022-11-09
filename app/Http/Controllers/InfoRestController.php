@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RestaurantInformation\RestInformationRequest;
+use App\Http\Requests\RestaurantInformation\RestInformationUpdateRequest;
 use App\Models\FoodCategory;
 use App\Models\InformationRest;
 use App\Models\Restaurnt;
-use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,6 @@ class InfoRestController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -38,23 +38,9 @@ class InfoRestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RestInformationRequest $request)
     {
         $seller = User::find(auth()->user()->id);
-        $id = Seller::all()->where('email' , $seller->email);
-
-        foreach ($id as $id) {
-            $user_id = $id->id;
-        }
-
-        $request->validate([
-            'name' => 'required|min:2',
-            'phone' => 'required|unique:information_rests|min:10',
-            'account_number' => 'required|integer|min:16',
-            'address' => 'required|min:15',
-            'rest_cat' => 'required',
-        ]);
-
 
         $restData = new InformationRest();
         $restData->rest_name = $request->name;
@@ -62,8 +48,13 @@ class InfoRestController extends Controller
         $restData->phone = $request->phone;
         $restData->address = $request->address;
         $restData->account_number = $request->account_number;
-        $restData->seller_id = $user_id;
+        $restData->seller_id = $seller->id;
         $restData->save();
+
+        User::find($seller->id)
+            ->update([
+                'role' => 'seller'
+            ]);
 
         return redirect('dashboard');
     }
@@ -102,21 +93,8 @@ class InfoRestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RestInformationUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'phone' => 'required|min:10',
-            'account_number' => 'required|integer|min:16',
-            'address' => 'required|min:15',
-            'post_cash' => 'required|integer',
-            'work_times' => 'required',
-            'photo' => 'required|mimes:jpg,png,jpeg',
-            'rest_cat' => 'required',
-            'food_cat' => 'required'
-        ]);
-
-        // dd($request->file('photo')->getClientOriginalName());
         $image = $request->file('photo')->getClientOriginalName();
         $request->file('photo')->move(public_path('images') , $image);
 
@@ -130,10 +108,10 @@ class InfoRestController extends Controller
             'account_number' => $request->account_number,
             'post_cash' => $request->post_cash,
             'work_times' => $request->work_times,
-            'image' => $image
+            'image' => $image,
 	    ]);
 
-        return redirect('dashboard');
+        return redirect('RestInormations/'. $id);
     }
 
     public function openOrClose($id)

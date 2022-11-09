@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\Discount\DiscountCreateRequest;
+use App\Http\Requests\Discount\DiscountUpdateRequest;
 use Carbon\Carbon;
 use App\Models\Discount;
 use Illuminate\Http\Request;
@@ -34,15 +37,8 @@ class DiscountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DiscountCreateRequest $request)
     {
-        $request->validate([
-            'code' => 'required|min:6',
-            'discount' => 'required|integer',
-            'h' => 'required|integer',
-            'd' => 'integer',
-        ]);
-
         // $time = new Carbon();
         // // $time = Carbon::now('IRI');
         // $time = Carbon::now()->setTimezone('Asia/Tehran');//->format('Y/M/D H:i');
@@ -55,9 +51,9 @@ class DiscountController extends Controller
 
         $time = Carbon::now()->setTimezone('Asia/Tehran');
 
-        if (isset($request->h) || isset($request->d)) {
-            $t = $time->addHours($request->h);
-            $t = $time->addDays($request->d);
+        if (isset($request->hour) || isset($request->day)) {
+            $t = $time->addHours($request->hour);
+            $t = $time->addDays($request->day);
         }
 
 
@@ -101,20 +97,13 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DiscountUpdateRequest $request, $id)
     {
-        $request->validate([
-            'code' => 'required|min:6',
-            'discount' => 'required|integer',
-            'h' => 'required|integer',
-            'd' => 'integer',
-        ]);
-
         $time = Carbon::now()->setTimezone('Asia/Tehran');
 
-        if (isset($request->h) || isset($request->d)) {
-            $t = $time->addHours($request->h);
-            $t = $time->addDays($request->d);
+        if (isset($request->hour) || isset($request->day)) {
+            $t = $time->addHours($request->hour);
+            $t = $time->addDays($request->day);
         }
 
         Discount::find($id)

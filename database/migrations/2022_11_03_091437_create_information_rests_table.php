@@ -25,8 +25,10 @@ return new class extends Migration
             $table->enum('state' , ['open' , 'close'])->default('close');
             $table->bigInteger('post_cash')->nullable();
             $table->string('work_times')->nullable();
-            $table->foreignId('seller_id')->references('id')->on('sellers');
+            $table->foreignId('seller_id')->references('id')->on('users');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 

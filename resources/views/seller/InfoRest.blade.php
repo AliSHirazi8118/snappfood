@@ -4,7 +4,7 @@
 <h3 class="d-flex justify-content-center text-white" style="padding-top: 20px">مشخصات رستوران</h3>
 
 
-<div dir="ltr" class="d-flex gap-4 justify-content-center bg-light" style="margin-top: 100px ; padding-top:20px" >
+<div dir="ltr" class="d-flex gap-4 justify-content-center bg-light" style="margin-top: 50px ; padding-top:20px" >
     <form action="/RestInormations" method="post" class="col-3">
         @if ($errors->any())
         <div class="d-flex justify-content-center alert alert-danger">
@@ -16,21 +16,21 @@
         </div>
         @endif
         @csrf
-        <div class="d-block" dir="ltr">
+        <div class="d-block" dir="rtl">
             <div class="col">
-                <input name="name" type="text" class="form-control" placeholder="نام رستوران">
+                <input name="name" type="text" class="form-control" value="{{old('name')}}" placeholder="نام رستوران">
             </div>
             <br>
             <div class="col">
-                <input name="phone" type="phone" class="form-control" placeholder="تلفن">
+                <input name="phone" type="phone" class="form-control" value="{{old('phone')}}" placeholder="تلفن">
             </div>
             <br>
             <div class="col">
-                <input name="account_number" type="number" class="form-control" placeholder="شماره حساب">
+                <input name="account_number" type="text" class="form-control" value="{{old('account_number')}}" placeholder="شماره حساب">
             </div>
             <br>
             <div class="col">
-                <textarea name="address" type="text" class="form-control" placeholder="آدرس رستوران"></textarea>
+                <textarea name="address" type="text" class="form-control" value="{{old('address')}}" placeholder="آدرس رستوران"></textarea>
             </div>
             <br>
             <div class="col">

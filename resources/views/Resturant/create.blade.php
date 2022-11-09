@@ -16,7 +16,7 @@
         </div>
         @endif
         @csrf
-            <div class="d-block" dir="ltr">
+            <div class="d-block" dir="rtl">
                 <div class="col">
                     <input name="name" type="text" class="form-control" placeholder="نام دسته بندی">
                 </div>

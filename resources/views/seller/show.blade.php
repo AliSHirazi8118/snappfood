@@ -35,7 +35,7 @@
                         بسته است
                     @endif
                 </h5>
-                <img class="border border-danger rounded" src="{{asset('images/'.$rest->image)}}" alt="dd" width="400px" height="400px">
+                <img class="border border-danger rounded" src="{{asset('images/'.$rest->image)}}" alt="میتوانید عکس رستوران خود را آپلود کنید" width="400px" height="400px">
         </div>
         <form action="/state/{{ $rest->id }}" method="get">
             @if ($rest->state == 'open')

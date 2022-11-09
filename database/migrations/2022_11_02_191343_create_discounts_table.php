@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('state' , ['high' , 'low'])->default('high');
             $table->timestamps();
             $table->time('expire_time');
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 

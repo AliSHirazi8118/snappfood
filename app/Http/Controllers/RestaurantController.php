@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Restaurant\RestaurantCreateRequest;
+use App\Http\Requests\Restaurant\RestaurantUpdateRequest;
 use App\Models\Restaurnt;
 use Illuminate\Http\Request;
 
@@ -40,13 +42,8 @@ class RestaurantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RestaurantCreateRequest $request)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'des' => 'required|min:10',
-        ]);
-
         $rest = new Restaurnt();
         $rest->restaurnt_categories = $request->name;
         $rest->description = $request->des;
@@ -86,13 +83,8 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RestaurantUpdateRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'des' => 'required|min:10',
-        ]);
-
         Restaurnt::find($id)
 	    ->update([
 		    'restaurnt_categories' => $request->name,

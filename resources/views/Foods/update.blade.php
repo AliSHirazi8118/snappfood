@@ -1,11 +1,11 @@
 @extends('inc.cdn')
 
 @section('c')
-<h3 class="d-flex justify-content-center text-white" style="padding-top: 20px">غذای جدید</h3>
+<h3 class="d-flex justify-content-center text-white" style="padding-top: 20px">ویرایش اطلاعات غذا</h3>
 
 
 <div dir="ltr" class="d-flex gap-4 justify-content-center bg-light" style="margin-top: 50px ; padding-top:20px" >
-    <form enctype="multipart/form-data" action="/foods" method="post" class="col-3">
+    <form enctype="multipart/form-data" action="/foods/{{$food->id}}" method="post" class="col-3">
         @if ($errors->any())
         <div class="d-flex justify-content-center alert alert-danger">
             <ul>
@@ -15,18 +15,21 @@
             </ul>
         </div>
         @endif
+
         @csrf
-            <div class="d-block" dir="rtl">
+        @method('PUT')
+
+        <div class="d-block" dir="rtl">
                 <div class="col">
-                    <input name="name" type="text" class="form-control" placeholder="نام غذا">
+                    <input name="name" type="text" class="form-control" value="{{$food->food_name}}" placeholder="نام غذا">
                 </div>
                 <br>
                 <div class="col">
-                    <textarea name="material" type="text" class="form-control" placeholder="مواد اولیه"></textarea>
+                    <textarea name="material" type="text" class="form-control" value="{{$food->material}}" placeholder="مواد اولیه">{{$food->material}}</textarea>
                 </div>
                 <br>
                 <div class="col">
-                    <input name="price" type="text" class="form-control" placeholder="قیمت">
+                    <input name="price" type="text" class="form-control" value="{{$food->price - $food->discount}}" placeholder="قیمت">
                 </div>
                 <br>
                 <div class="col">
@@ -37,8 +40,8 @@
                 <div class="col">
                     <label for="food_cat">دسته بندی غذا </label>
                     <select name="food_cat" id="food_cat">
-                        @foreach ($foodCat as $r )
-                            <option value="{{$r->food_categories}}">{{$r->food_categories}}</option>
+                        @foreach ($foodCat as $f )
+                            <option value="{{$f->food_categories}}">{{$f->food_categories}}</option>
                         @endforeach
                     </select>
                 </div>

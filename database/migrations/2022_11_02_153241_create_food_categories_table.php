@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('food_count')->default(0);
             $table->foreignId('restaurant_id')->references('id')->on('restaurnts')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
+
         });
     }
 
