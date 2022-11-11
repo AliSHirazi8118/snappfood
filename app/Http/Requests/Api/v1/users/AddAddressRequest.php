@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Foods;
+namespace App\Http\Requests\Api\v1\users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FoodUpdateRequest extends FormRequest
+class AddAddressRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,10 @@ class FoodUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:30',
-            'material' => 'nullable|string|min:10|max:150',
-            'price' => 'required|integer',
-            'food_cat' => 'required|Food_type',
-            'photo' => 'required|mimes:png,jpg'
+            'title' => 'required|string|min:2|max:20',
+            'address' => 'required|string|min:10|max:100',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ];
     }
 }

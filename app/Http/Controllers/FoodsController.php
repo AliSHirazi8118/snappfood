@@ -19,7 +19,7 @@ class FoodsController extends Controller
      */
     public function index()
     {
-        $foods = Food::all();
+        $foods = Food::all()->where('restaurant_id' , auth()->user()->id);
         return view('Foods.index' , compact('foods'));
     }
 
@@ -59,6 +59,7 @@ class FoodsController extends Controller
         $food->food_cat = $request->food_cat;
         $food->food_cat_id = $food_cat_id;
         $food->image = $image;
+        $food->restaurant_id = auth()->user()->id;
         $food->save();
 
         return redirect('foods');

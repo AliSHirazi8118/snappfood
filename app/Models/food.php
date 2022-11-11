@@ -16,6 +16,7 @@ class Food extends Model
         'price',
         'food_cat_id',
         'food_cat',
+        'restaurant_id',
         'image',
         'discount',
         'food_party',

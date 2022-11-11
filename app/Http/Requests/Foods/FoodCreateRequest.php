@@ -27,7 +27,7 @@ class FoodCreateRequest extends FormRequest
                 'name' => 'required|string|min:2|max:30',
                 'price' => 'required',
                 'food_cat' => 'required|Food_type',
-                'photo' => 'mimes:png,jpg'
+                'photo' => 'required|mimes:png,jpg'
         ];
     }
 }

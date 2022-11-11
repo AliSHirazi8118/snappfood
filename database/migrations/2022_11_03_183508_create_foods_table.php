@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('food_cat');
             $table->foreignId('food_cat_id')->references('id')->on('food_categories');
+            $table->foreignId('restaurant_id')->references('id')->on('users');
             $table->string('discount')->nullable();
             $table->enum('food_party' , ['yes' , 'no'])->default('no');
             $table->timestamps();

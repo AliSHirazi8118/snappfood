@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Models\Restaurnt;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodCatController;
@@ -26,16 +27,7 @@ Route::get('/', function () {
     return view('HomePage');
 })->name('home');
 
-
-Route::get('/dashboard', function () {
-
-    $user = User::find(auth()->user()->id);
-    $info = InformationRest::where('seller_id',$user->id)->get();
-
-    return view('dashboard' , compact('user' , 'info'));
-
-
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class , 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
