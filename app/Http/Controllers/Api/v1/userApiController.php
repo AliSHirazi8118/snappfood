@@ -9,7 +9,7 @@ use App\Models\Address;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class userApiController extends Controller
+class UserApiController extends Controller
 {
     public function getAddresses()
     {
@@ -31,7 +31,7 @@ class userApiController extends Controller
 
     public function SetCurrentAddress()
     {
-        
+
         return response()->json([
             'message' => "current address updated successfully"
         ]);

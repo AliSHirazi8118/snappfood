@@ -36,8 +36,8 @@
             <div class="col">
                 <label for="rest_cat">دسته بندی رستوران</label>
                 <select name="rest_cat" id="rest_cat">
-                    @foreach ($rest as $r )
-                        <option value="{{$r->restaurnt_categories}}">{{$r->restaurnt_categories}}</option>
+                    @foreach ($restaurantData as $restaurant )
+                        <option value="{{$restaurant->restaurnt_categories}}">{{$restaurant->restaurnt_categories}}</option>
                     @endforeach
                 </select>
             </div>

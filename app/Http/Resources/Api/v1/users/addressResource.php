@@ -20,7 +20,9 @@ class addressResource extends ResourceCollection
                 return [
                     'id' => $address->id,
                     'title' => $address->title,
+                    'address' => $address->address,
                     'latitude' => $address->latitude,
+                    'longitude' => $address->longitude
                 ];
             }),
         ];

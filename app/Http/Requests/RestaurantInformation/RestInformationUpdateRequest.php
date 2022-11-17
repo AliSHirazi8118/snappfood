@@ -29,7 +29,7 @@ class RestInformationUpdateRequest extends FormRequest
                 'account_number' => 'required|string|min:16|max:16',
                 'address' => 'required|string|min:15',
                 'post_cash' => 'required|integer',
-                'work_times' => 'required',
+                // 'work_times' => 'required',
                 'photo' => 'required|mimes:jpg,png,jpeg',
                 'rest_cat' => 'required|Restaurant_type',
                 'food_cat' => 'required|Food_type'

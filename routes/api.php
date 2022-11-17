@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\v1\authApiController;
-use App\Http\Controllers\Api\v1\restaurantController;
-use App\Http\Controllers\Api\v1\userApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\User1Controller;
+use App\Http\Controllers\Api\v1\UserApiController;
+use App\Http\Controllers\Api\v1\RestaurantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,23 +25,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group( ['prefix' => 'v1'] , function($router){
 
-    $router->post('register' , [authApiController::class  , 'register']);
-    $router->post('login' , [authApiController::class , 'login']);
+    $router->post('register' , [AuthController::class  , 'register']);
+    $router->post('login' , [AuthController::class , 'login']);
 
  });
 
  Route::group( ['prefix' => 'v1'] , function($router){
 
-    $router->get('addresses' , [userApiController::class  , 'getAddresses']);
-    $router->post('addresses' , [userApiController::class , 'AddAddress']);
-    $router->post('addresses/{id}' , [userApiController::class , 'SetCurrentAddress']);
+    $router->get('addresses' , [UserApiController::class  , 'getAddresses']);
+    $router->post('addresses' , [UserApiController::class , 'AddAddress']);
+    $router->post('addresses/{id}' , [UserApiController::class , 'SetCurrentAddress']);
 
  });
 
  Route::group( ['prefix' => 'v1'] , function($router){
 
-    $router->get('restaurants/{id}' , [restaurantController::class  , 'getRestaurantData']);
-    $router->post('addresses' , [restaurantController::class , 'AddAddress']);
-    $router->post('addresses/{id}' , [restaurantController::class , 'SetCurrentAddress']);
+    $router->get('restaurants/{id}' , [RestaurantController::class  , 'getRestaurantData']);
+    $router->get('restaurants/{id}/foods' , [RestaurantController::class , 'getRestaurantFoods']);
 
  });
+
+
+
+ Route::apiResource( 'users' , User1Controller::class);

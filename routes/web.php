@@ -46,5 +46,3 @@ Route::post('addDiscount/{id}' , [FoodsController::class , 'addDiscount']);
 Route::post('addFoodParty/{id}' , [FoodsController::class ,'addFoodParty']);
 
 
-Route::get('DataRest' , [RegisterSeller::class , 'showDataRest'])->name('ShowFormRest');
-Route::post('SubmitDataRest' , [RegisterSeller::class , 'submitDataRest']);

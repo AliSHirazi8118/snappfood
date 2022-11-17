@@ -28,8 +28,8 @@ class InfoRestController extends Controller
      */
     public function create()
     {
-        $rest = Restaurnt::all();
-        return view('seller.InfoRest' , compact('rest'));
+        $restaurantData = Restaurnt::all();
+        return view('seller.InfoRest' , compact('restaurantData'));
     }
 
     /**
@@ -67,8 +67,9 @@ class InfoRestController extends Controller
      */
     public function show($id)
     {
-        $rest = InformationRest::find($id);
-        return view('seller.show' , compact('rest'));
+        $restaurantData = InformationRest::find($id);
+        $times = explode( ' ' , $restaurantData->work_times);
+        return view('seller.show' , compact('restaurantData' , 'times'));
     }
 
     /**
@@ -80,10 +81,10 @@ class InfoRestController extends Controller
     public function edit($id)
     {
 
-        $restInfo = InformationRest::find($id);
-        $rest = Restaurnt::all();
-        $food = FoodCategory::all();
-        return view('seller.update' , compact('restInfo' , 'rest' , 'food' ));
+        $restaurantData = InformationRest::find($id);
+        $restaurants = Restaurnt::all();
+        $foodCategories = FoodCategory::all();
+        return view('seller.update' , compact('restaurantData' , 'restaurants' , 'foodCategories' ));
     }
 
     /**
@@ -98,6 +99,16 @@ class InfoRestController extends Controller
         $image = $request->file('photo')->getClientOriginalName();
         $request->file('photo')->move(public_path('images') , $image);
 
+        $work_times =
+            $request->start_time_1.' '.$request->end_time_1.' '.
+            $request->start_time_2.' '.$request->end_time_2.' '.
+            $request->start_time_3.' '.$request->end_time_3.' '.
+            $request->start_time_4.' '.$request->end_time_4.' '.
+            $request->start_time_5.' '.$request->end_time_5.' '.
+            $request->start_time_6.' '.$request->end_time_6.' '.
+            $request->start_time_7.' '.$request->end_time_7
+        ;
+
         InformationRest::find($id)
 	    ->update([
 		    'rest_name' => $request->name,
@@ -107,7 +118,7 @@ class InfoRestController extends Controller
             'phone' => $request->phone,
             'account_number' => $request->account_number,
             'post_cash' => $request->post_cash,
-            'work_times' => $request->work_times,
+            'work_times' => $work_times,
             'image' => $image,
 	    ]);
 
@@ -116,11 +127,11 @@ class InfoRestController extends Controller
 
     public function openOrClose($id)
     {
-        $rest = InformationRest::find($id);
-        if ($rest->state == 'close') {
-            $rest->update(['state' => 'open']);
+        $restaurant = InformationRest::find($id);
+        if ($restaurant->state == 'close') {
+            $restaurant->update(['state' => 'open']);
         }else{
-            $rest->update(['state' => 'close']);
+            $restaurant->update(['state' => 'close']);
         }
         return redirect('RestInormations/' . $id);
     }
