@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Address;
+use App\Models\Restaurnt;
+use App\Models\FoodCategory;
+use Illuminate\Http\Request;
+use App\Models\InformationRest;
 use App\Http\Requests\RestaurantInformation\RestInformationRequest;
 use App\Http\Requests\RestaurantInformation\RestInformationUpdateRequest;
-use App\Models\FoodCategory;
-use App\Models\InformationRest;
-use App\Models\Restaurnt;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 class InfoRestController extends Controller
 {
@@ -69,6 +70,7 @@ class InfoRestController extends Controller
     {
         $restaurantData = InformationRest::find($id);
         $times = explode( ' ' , $restaurantData->work_times);
+
         return view('seller.show' , compact('restaurantData' , 'times'));
     }
 

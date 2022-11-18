@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
-use App\Http\Controllers\Api\v1\User1Controller;
 use App\Http\Controllers\Api\v1\UserApiController;
 use App\Http\Controllers\Api\v1\RestaurantController;
 
@@ -23,28 +22,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::group( ['prefix' => 'v1'] , function($router){
+Route::group( ['prefix' => 'auth'] , function($router){
 
     $router->post('register' , [AuthController::class  , 'register']);
     $router->post('login' , [AuthController::class , 'login']);
 
- });
+});
 
- Route::group( ['prefix' => 'v1'] , function($router){
+Route::group( ['prefix' => 'v1'] , function($router){
 
-    $router->get('addresses' , [UserApiController::class  , 'getAddresses']);
-    $router->post('addresses' , [UserApiController::class , 'AddAddress']);
-    $router->post('addresses/{id}' , [UserApiController::class , 'SetCurrentAddress']);
-
- });
-
- Route::group( ['prefix' => 'v1'] , function($router){
-
-    $router->get('restaurants/{id}' , [RestaurantController::class  , 'getRestaurantData']);
+    Route::apiResource( 'addresses' , UserApiController::class);
+    Route::apiResource( 'restaurants' , RestaurantController::class);
     $router->get('restaurants/{id}/foods' , [RestaurantController::class , 'getRestaurantFoods']);
 
- });
+});
 
-
-
- Route::apiResource( 'users' , User1Controller::class);
