@@ -43,6 +43,16 @@ class InfoRestController extends Controller
     {
         $seller = User::find(auth()->user()->id);
 
+        $work_times =
+            '_____'.' '.'_____'.' '.
+            '_____'.' '.'_____'.' '.
+            '_____'.' '.'_____'.' '.
+            '_____'.' '.'_____'.' '.
+            '_____'.' '.'_____'.' '.
+            '_____'.' '.'_____'.' '.
+            '_____'.' '.'_____'
+        ;
+
         $restData = new InformationRest();
         $restData->rest_name = $request->name;
         $restData->rest_type = $request->rest_cat;
@@ -50,6 +60,7 @@ class InfoRestController extends Controller
         $restData->address = $request->address;
         $restData->account_number = $request->account_number;
         $restData->seller_id = $seller->id;
+        $restData->work_times = $work_times;
         $restData->save();
 
         User::find($seller->id)

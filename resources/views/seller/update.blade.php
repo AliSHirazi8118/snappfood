@@ -54,10 +54,7 @@
             <br>
 
 
-
-
             <div class="col">
-                <input name="work_times" type="text" class="form-control" value="{{$restaurantData->work_times}}" placeholder="ساعات کاری">
                 <label for="work_times">تنظیم ساعات کاری</label>
                 <table style="border: 1px solid black;">
                     <tr>

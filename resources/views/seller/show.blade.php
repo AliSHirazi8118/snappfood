@@ -70,7 +70,7 @@
                     }).addTo(map);
 
                 </script>
-
+                @if (count($times) == 14)
                 <div  style="height: 400px; width: 300px; margin-left: 60px">
                     <table style="border: 1px solid black;">
                         <tr>
@@ -115,7 +115,7 @@
                           </tr>
                       </table>
                 </div>
-
+                @endif
         </div>
         <form action="/state/{{ $restaurantData->id }}" method="get">
             @if ($restaurantData->state == 'open')

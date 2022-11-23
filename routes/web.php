@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoodCatController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FoodsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoRestController;
 use App\Http\Controllers\RegisterSeller;
 use App\Http\Controllers\RestaurantController;
@@ -23,9 +24,7 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('HomePage');
-})->name('home');
+Route::get('/', [HomeController::class , 'index'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class , 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

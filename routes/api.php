@@ -29,11 +29,11 @@ Route::group( ['prefix' => 'auth'] , function($router){
 
 });
 
-Route::group( ['prefix' => 'v1'] , function($router){
+Route::group( ['prefix' => 'v1' ] , function($router){
 
     Route::apiResource( 'addresses' , UserApiController::class);
     Route::apiResource( 'restaurants' , RestaurantController::class);
     $router->get('restaurants/{id}/foods' , [RestaurantController::class , 'getRestaurantFoods']);
 
 });
-
+// , 'middleware' => 'auth:sanctum'
