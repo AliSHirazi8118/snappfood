@@ -72,7 +72,7 @@
                 </script>
                 @if (count($times) == 14)
                 <div  style="height: 400px; width: 300px; margin-left: 60px">
-                    <table style="border: 1px solid black;">
+                    <table>
                         <tr>
                           <th>روزهای هفته</th>
                           <th>ساعت شروع</th>

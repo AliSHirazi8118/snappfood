@@ -24,4 +24,12 @@ class HomeController extends Controller
 
         return view('HomePage' , compact('foods' , 'restaurants'));
     }
+
+    public function showData($id)
+    {
+        $food = Food::find($id);
+        $restaurantData = InformationRest::where('seller_id' , $food->restaurant_id)->get();
+        // dd($restaurant);
+        return view('Foods.showData' , compact('food' , 'restaurantData'));
+    }
 }

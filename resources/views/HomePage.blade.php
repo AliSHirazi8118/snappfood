@@ -12,7 +12,7 @@
 
     div.scrollmenu a {
     display: inline-block;
-    color: rgb(5, 151, 75);
+    color: rgb(133, 20, 185);
     text-align: center;
     padding: 14px;
     text-decoration: none;
@@ -91,7 +91,10 @@
                     <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
                   </svg> 247 نظر
               </h6>
-              <a href="#">+ افزودن به سبد خرید</a>
+              <a href="food/data/{{$food->id}}">مشاهده بیشتر <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+              </svg></a>
             </div>
         </div>
         @endforeach

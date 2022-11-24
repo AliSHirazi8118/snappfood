@@ -160,6 +160,7 @@ class FoodsController extends Controller
         return redirect('foods');
     }
 //------------------------------------------------------------------
+
     /**
      * Remove the specified resource from storage.
      *
