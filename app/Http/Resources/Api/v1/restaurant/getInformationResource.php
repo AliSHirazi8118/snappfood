@@ -25,7 +25,7 @@ class getInformationResource extends JsonResource
         }
 
         $times = explode( ' ' , $this->work_times);
-        
+
         return [
 
             'id' => $this->id,

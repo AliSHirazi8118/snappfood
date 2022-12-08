@@ -27,7 +27,7 @@ class FoodCatUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:2|max:10',
-            'rest_cat' => 'required|string|Restaurant_type',
+            'rest_cat' => 'required|Restaurant_type_id',
         ];
     }
 }

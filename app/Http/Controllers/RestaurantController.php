@@ -6,15 +6,10 @@ use App\Http\Requests\Restaurant\RestaurantCreateRequest;
 use App\Http\Requests\Restaurant\RestaurantUpdateRequest;
 use App\Models\Restaurnt;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class RestaurantController extends Controller
 {
-    // public function __construct()
-    // {
-
-    // }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +17,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny' , Restaurnt::class);
         $rest = Restaurnt::all();
         return view('Resturant.resturant' , compact('rest'));
     }
@@ -33,6 +29,7 @@ class RestaurantController extends Controller
      */
     public function create()
     {
+        Gate::authorize('viewAny' , Restaurnt::class );
         return view('Resturant.create');
     }
 
@@ -44,6 +41,7 @@ class RestaurantController extends Controller
      */
     public function store(RestaurantCreateRequest $request)
     {
+        Gate::authorize('create' , Restaurnt::class );
         $rest = new Restaurnt();
         $rest->restaurnt_categories = $request->name;
         $rest->description = $request->des;
@@ -60,6 +58,7 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
+        Gate::authorize('viewAny' , Restaurnt::class );
         $rest = Restaurnt::find($id);
         return view('Resturant.show' , compact('rest'));
     }
@@ -72,6 +71,7 @@ class RestaurantController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('viewAny' , Restaurnt::class );
         $rest = Restaurnt::find($id);
         return view('Resturant.update' , compact('rest'));
     }
@@ -85,6 +85,7 @@ class RestaurantController extends Controller
      */
     public function update(RestaurantUpdateRequest $request, $id)
     {
+        Gate::authorize('viewAny' , Restaurnt::class );
         Restaurnt::find($id)
 	    ->update([
 		    'restaurnt_categories' => $request->name,
@@ -102,6 +103,7 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('viewAny' , Restaurnt::class );
         Restaurnt::destroy($id);
         return redirect('restaurant');
     }

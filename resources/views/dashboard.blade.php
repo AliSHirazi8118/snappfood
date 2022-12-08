@@ -41,7 +41,7 @@
                     @elseif ($user->role == 'seller')
                             @foreach ($restaurantData as $data)
                                 <div class="d-flex justify-content-center">
-                                    <a href="/RestInormations/{{$data->id}}" class="btn btn-success btn-lg btn-block mt-2 mb-2" style="margin-left: 10px; height:50px; width:200px">تنظیمات اولیه رستوران</a>
+                                    <a href="/RestInormations/{{$data->seller_id}}" class="btn btn-success btn-lg btn-block mt-2 mb-2" style="margin-left: 10px; height:50px; width:200px">تنظیمات اولیه رستوران</a>
                                     <a href="/foods" class="btn btn-primary btn-lg btn-block mt-2 mb-2" style="margin-left: 10px ;height:50px; width:200px">مدیریت غذاها</a>
                                     <a href="/foods" class="btn btn-warning btn-lg btn-block mt-2 mb-2" style="margin-left: 10px ;height:50px; width:200px">گزارش فروش</a>
                                     <a href="/order/archive" class="btn btn-info btn-lg btn-block mt-2 mb-2" style="margin-left: 10px ;height:50px; width:200px">آرشیو سفارش ها</a>

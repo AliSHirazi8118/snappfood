@@ -7,6 +7,7 @@ use App\Http\Requests\Discount\DiscountUpdateRequest;
 use Carbon\Carbon;
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DiscountController extends Controller
 {
@@ -18,6 +19,7 @@ class DiscountController extends Controller
     public function index()
     {
         $discount = Discount::all();
+        Gate::authorize('viewAny' , Discount::class);
         return view('Discounts.index' , compact('discount'));
     }
 
@@ -28,6 +30,7 @@ class DiscountController extends Controller
      */
     public function create()
     {
+        Gate::authorize('viewAny' , Discount::class);
         return view('Discounts.create');
     }
 
@@ -48,6 +51,8 @@ class DiscountController extends Controller
         // $e = 48;
         // $time->addHours($e);
         // dd($time);
+
+        Gate::authorize('viewAny' , Discount::class);
 
         $time = Carbon::now()->setTimezone('Asia/Tehran');
 
@@ -75,6 +80,7 @@ class DiscountController extends Controller
     public function show($id)
     {
         $discount = Discount::find($id);
+        Gate::authorize('viewAny' , Discount::class);
         return view('Discounts.show' , compact('discount'));
     }
 
@@ -87,6 +93,7 @@ class DiscountController extends Controller
     public function edit($id)
     {
         $discount = Discount::find($id);
+        Gate::authorize('viewAny' , Discount::class);
         return view('Discounts.update' , compact('discount'));
     }
 
@@ -99,6 +106,8 @@ class DiscountController extends Controller
      */
     public function update(DiscountUpdateRequest $request, $id)
     {
+        Gate::authorize('viewAny' , Discount::class);
+
         $time = Carbon::now()->setTimezone('Asia/Tehran');
 
         if (isset($request->hour) || isset($request->day)) {
@@ -124,6 +133,7 @@ class DiscountController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('viewAny' , Discount::class);
         Discount::destroy($id);
         return redirect('discounts');
     }

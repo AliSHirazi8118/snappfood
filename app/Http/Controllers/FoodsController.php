@@ -9,6 +9,7 @@ use App\Models\Food;
 use App\Models\Restaurnt;
 use App\Models\FoodCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class FoodsController extends Controller
 {
@@ -30,6 +31,7 @@ class FoodsController extends Controller
      */
     public function create()
     {
+
         $rest = Restaurnt::all();
         $foodCat = FoodCategory::all();
         return view('Foods.create' , compact('rest' , 'foodCat'));
@@ -75,6 +77,7 @@ class FoodsController extends Controller
     {
         $foodCat = FoodCategory::find($id);
         $food = Food::find($id);
+        Gate::authorize('view' , $food);
         return view('Foods.show' , compact('foodCat' , 'food'));
     }
 
@@ -88,6 +91,7 @@ class FoodsController extends Controller
     {
         $foodCat = FoodCategory::all();
         $food = Food::find($id);
+        Gate::authorize('view' , $food);
         return view('Foods.update' , compact('food' , 'foodCat'));
     }
 
@@ -100,6 +104,8 @@ class FoodsController extends Controller
      */
     public function update(FoodUpdateRequest $request, $id)
     {
+        $food = Food::find($id);
+        Gate::authorize('view' , $food);
         $foodId = FoodCategory::where('food_categories' , $request->food_cat)->get();
         foreach ($foodId as $food) {
             $food_cat_id = $food->id;
@@ -127,6 +133,7 @@ class FoodsController extends Controller
     public function showAddDiscount($id)
     {
         $food = Food::find($id);
+        Gate::authorize('view' , $food);
         return view('Foods.addDiscount' , compact('food'));
     }
     public function addDiscount(addDiscountRequest $request , $id)

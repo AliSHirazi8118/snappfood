@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CardController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FoodCatController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FoodsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoRestController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\RegisterSeller;
 use App\Http\Controllers\RestaurantController;
 
 /*
@@ -49,6 +49,12 @@ Route::post('order/preparing/{id}' , [OrderController::class ,'preparing']);
 Route::post('order/posted/{id}' , [OrderController::class ,'posted']);
 Route::post('order/received/{id}' , [OrderController::class ,'received']);
 Route::get('order/archive' , [OrderController::class ,'archive']);
+
+
+Route::get('card/add/{id}/{restaurant_id}' , [CardController::class ,'setCard'])->name('addCard')->middleware('auth');
+Route::get('card/buy' , [CardController::class ,'Buy'])->name('Buy')->middleware('auth');
+Route::get('card' , [CardController::class ,'showCard'])->name('card')->middleware('auth');
+
 
 
 

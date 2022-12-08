@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\v1\AuthController;
+use App\Http\Controllers\Api\v1\CartController;
 use App\Http\Controllers\Api\v1\UserApiController;
 use App\Http\Controllers\Api\v1\RestaurantController;
 
@@ -32,8 +33,12 @@ Route::group( ['prefix' => 'auth'] , function($router){
 Route::group( ['prefix' => 'v1' ] , function($router){
 
     Route::apiResource( 'addresses' , UserApiController::class);
+
     Route::apiResource( 'restaurants' , RestaurantController::class);
     $router->get('restaurants/{id}/foods' , [RestaurantController::class , 'getRestaurantFoods']);
+
+    Route::apiResource( 'carts' , CartController::class);
+
 
 });
 // , 'middleware' => 'auth:sanctum'

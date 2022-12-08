@@ -8,6 +8,7 @@ use App\Models\Restaurnt;
 use App\Models\FoodCategory;
 use Illuminate\Http\Request;
 use App\Models\InformationRest;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\RestaurantInformation\RestInformationRequest;
 use App\Http\Requests\RestaurantInformation\RestInformationUpdateRequest;
 
@@ -41,6 +42,7 @@ class InfoRestController extends Controller
      */
     public function store(RestInformationRequest $request)
     {
+
         $seller = User::find(auth()->user()->id);
 
         $work_times =
@@ -79,7 +81,11 @@ class InfoRestController extends Controller
      */
     public function show($id)
     {
-        $restaurantData = InformationRest::find($id);
+
+        //Gate
+        $data = InformationRest::where('seller_id' , $id)->get();
+        $restaurantData = InformationRest::find($data->first()->id);
+        Gate::authorize('view', $restaurantData);
         $times = explode( ' ' , $restaurantData->work_times);
 
         return view('seller.show' , compact('restaurantData' , 'times'));
@@ -93,6 +99,9 @@ class InfoRestController extends Controller
      */
     public function edit($id)
     {
+        //Gate
+        $info = InformationRest::find($id);
+        Gate::authorize('view', $info);
 
         $restaurantData = InformationRest::find($id);
         $restaurants = Restaurnt::all();
@@ -109,6 +118,7 @@ class InfoRestController extends Controller
      */
     public function update(RestInformationUpdateRequest $request, $id)
     {
+
         $image = $request->file('photo')->getClientOriginalName();
         $request->file('photo')->move(public_path('images') , $image);
 

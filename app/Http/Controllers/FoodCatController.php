@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FoodCategory\FoodCatCreateRequest;
-use App\Http\Requests\FoodCategory\FoodCatUpdateRequest;
 use App\Models\Restaurnt;
 use App\Models\FoodCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\FoodCategory\FoodCatCreateRequest;
+use App\Http\Requests\FoodCategory\FoodCatUpdateRequest;
 
 class FoodCatController extends Controller
 {
@@ -17,6 +18,7 @@ class FoodCatController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny' , FoodCategory::class);
         $foodCat = FoodCategory::all();
         return view('Food_Category.index' , compact('foodCat'));
     }
@@ -28,8 +30,8 @@ class FoodCatController extends Controller
      */
     public function create()
     {
+        Gate::authorize('viewAny' , FoodCategory::class);
         $rest = Restaurnt::all();
-
         return view('Food_Category.create' , compact('rest'));
     }
 
@@ -41,6 +43,7 @@ class FoodCatController extends Controller
      */
     public function store(FoodCatCreateRequest $request)
     {
+        Gate::authorize('create' , FoodCategory::class);
         $foodCat = new FoodCategory();
         $foodCat->food_categories = $request->name;
         $foodCat->restaurant_id = $request->rest_cat;
@@ -57,6 +60,7 @@ class FoodCatController extends Controller
      */
     public function show($id)
     {
+        Gate::authorize('viewAny' , FoodCategory::class);
         $foodCat = FoodCategory::find($id);
         $rest = Restaurnt::all()->where('id' , $foodCat->restaurant_id);
         return view('Food_Category.show' , compact('foodCat' , 'rest'));
@@ -70,6 +74,7 @@ class FoodCatController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('viewAny' , FoodCategory::class);
         $foodCat = FoodCategory::find($id);
         $rest = Restaurnt::all();
         return view('Food_Category.update' , compact('foodCat','rest'));
@@ -84,6 +89,7 @@ class FoodCatController extends Controller
      */
     public function update(FoodCatUpdateRequest $request, $id)
     {
+        Gate::authorize('viewAny' , FoodCategory::class);
         FoodCategory::find($id)
 	    ->update([
 		    'food_categories' => $request->name,
@@ -101,6 +107,7 @@ class FoodCatController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('viewAny' , FoodCategory::class);
         FoodCategory::destroy($id);
         return redirect('food_categories');
     }
